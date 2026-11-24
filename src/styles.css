@@ -1,0 +1,29 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #1c3529;
+  background: #f6f8f5;
+  line-height: 1.5;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 76rem; margin: 0 auto; padding: clamp(1rem, 4vw, 3rem); }
+h1 { margin: 0 0 1.25rem; font-size: clamp(2rem, 4vw, 3rem); }
+h2 { margin: 0; font-size: 1.25rem; }
+p { margin: 0.5rem 0 0; }
+
+.park-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 1rem;
+}
+
+.park-sidebar { display: grid; align-content: start; gap: 1rem; }
+.panel { background: white; border: 1px solid #c7d3ca; border-radius: 0.5rem; padding: 1.25rem; }
+.map-panel { min-height: 21rem; background: #e5ede6; }
+:focus-visible { outline: 3px solid #1853a0; outline-offset: 3px; }
+
+@media (max-width: 44rem) {
+  .park-layout { grid-template-columns: minmax(0, 1fr); }
+  .map-panel { min-height: 12rem; }
+}
