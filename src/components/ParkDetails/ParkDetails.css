@@ -63,3 +63,12 @@
   color: #49534d;
   font-size: 0.875rem;
 }
+
+.park-photo-label {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  background: #e8f2eb;
+  color: #1c3529;
+  font-weight: 600;
+}
