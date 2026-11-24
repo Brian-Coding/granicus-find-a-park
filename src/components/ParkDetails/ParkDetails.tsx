@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react'
+import placeholder from '../../assets/park-placeholder.webp'
 import type { Park } from '../../types'
 import { formatAmenity } from './formatAmenity'
 import './ParkDetails.css'
@@ -8,12 +9,21 @@ interface ParkDetailsProps {
   onClose: () => void
 }
 
-function ParkPhoto({ src, alt }: { src: string; alt: string }) {
+function ParkPhoto({ src, alt }: { src?: string; alt: string }) {
   const [failed, setFailed] = useState(false)
 
-  if (failed) return <div className="park-photo-placeholder">Image unavailable</div>
-
-  return <img src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />
+  return (
+    <figure>
+      <img
+        src={failed ? placeholder : src ?? placeholder}
+        alt={failed ? 'Placeholder illustration (photo unavailable)' : alt}
+        loading="lazy"
+        onError={src && !failed ? () => setFailed(true) : undefined}
+      />
+      {failed && <figcaption>Photo unavailable</figcaption>}
+      {!src && <figcaption>No photos provided</figcaption>}
+    </figure>
+  )
 }
 
 export function ParkDetails({ park, onClose }: ParkDetailsProps) {
@@ -41,50 +51,45 @@ export function ParkDetails({ park, onClose }: ParkDetailsProps) {
         <button type="button" onClick={onClose}>Back to list</button>
       </header>
       <dl>
-        {park.description && (
-          <div>
-            <dt>Description</dt>
-            <dd>{park.description}</dd>
-          </div>
-        )}
+        <div className="park-details-hours">
+          <dt>Hours</dt>
+          <dd>{park.hours ?? 'Not provided'}</dd>
+        </div>
         <div>
           <dt>Address</dt>
           <dd>{park.location?.address ?? 'Not provided'}</dd>
         </div>
         <div>
-          <dt>Hours</dt>
-          <dd>{park.hours ?? 'Not provided'}</dd>
+          <dt>Description</dt>
+          <dd>{park.description ?? 'Not provided'}</dd>
         </div>
-        {park.acreage != null && (
-          <div>
-            <dt>Acreage</dt>
-            <dd>{park.acreage} {park.acreage === 1 ? 'acre' : 'acres'}</dd>
-          </div>
-        )}
-        {park.rating != null && (
-          <div>
-            <dt>Rating</dt>
-            <dd>{park.rating} out of 5</dd>
-          </div>
-        )}
-        {park.amenities && park.amenities.length > 0 && (
-          <div>
-            <dt>Amenities</dt>
-            <dd>
+        <div>
+          <dt>Amenities</dt>
+          <dd>
+            {park.amenities?.length ? (
               <ul>
                 {park.amenities.map((slug, index) => <li key={`${slug}-${index}`}>{formatAmenity(slug)}</li>)}
               </ul>
-            </dd>
-          </div>
-        )}
-      </dl>
-      {park.images && park.images.length > 0 && (
-        <div className="park-details-photos">
-          {park.images.map((src, index) => (
-            <ParkPhoto key={`${src}-${index}`} src={src} alt={`Photo ${index + 1} of ${park.name}`} />
-          ))}
+            ) : 'Not provided'}
+          </dd>
         </div>
-      )}
+        <div>
+          <dt>Acreage</dt>
+          <dd>{park.acreage != null ? `${park.acreage} ${park.acreage === 1 ? 'acre' : 'acres'}` : 'Not provided'}</dd>
+        </div>
+        <div>
+          <dt>Rating</dt>
+          <dd>{park.rating != null ? `${park.rating} out of 5` : 'Not provided'}</dd>
+        </div>
+        <div>
+          <dt>Photos</dt>
+          <dd className="park-details-photos">
+            {park.images?.length ? park.images.map((src, index) => (
+              <ParkPhoto key={`${src}-${index}`} src={src} alt={`Photo ${index + 1} of ${park.name}`} />
+            )) : <ParkPhoto alt="Placeholder illustration (no photos provided)" />}
+          </dd>
+        </div>
+      </dl>
     </section>
   )
 }

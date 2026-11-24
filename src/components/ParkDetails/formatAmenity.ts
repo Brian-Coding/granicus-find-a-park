@@ -1,5 +1,5 @@
 export function formatAmenity(slug: string): string {
-  if (slug.toLowerCase() === 'wifi') return 'WiFi'
-  const label = slug.replace(/[-_]+/g, ' ')
+  const label = slug.toLowerCase().replace(/[-_]+/g, ' ')
+  if (label === 'wifi') return 'WiFi'
   return label.charAt(0).toUpperCase() + label.slice(1)
 }
