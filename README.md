@@ -73,7 +73,7 @@ Search, filters, current location, URL deep links (`?park=id`), a backend, and d
 
 Grok Bot orchestrated the work. Codex CLI (`gpt-6.2-astra`, high reasoning effort) created the scaffold, then ran parallel sessions for `feature/map`, `feature/list`, and `feature/details`, followed by polish and revision sessions. Each pull request was reviewed before merge.
 
-The full, unredacted Codex logs (JSONL event streams, final messages, and stderr) and every prompt are in `ai-logs/` in this repository, indexed by `ai-logs/README.md`. The orchestration chat with Grok Bot (which planned the work, ran the Codex sessions, reviewed every PR, and ran the browser tests) is exported separately with the submission.
+The full, unredacted Codex logs (JSONL event streams, final messages, and stderr) and every prompt are in `ai-logs/` in this repository, indexed by `ai-logs/README.md`. The orchestration chat with Grok Bot (which planned the work, ran the Codex sessions, reviewed every PR, and ran the browser tests) is also in `ai-logs/` (`grokbot-transcript.md` and `combined-transcript.md`).
 
 ## Time spent
 

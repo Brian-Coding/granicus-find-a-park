@@ -1,8 +1,35 @@
-# AI logs
+# AI logs — Granicus “Find a Park”
 
-Unredacted Codex CLI logs and prompts from the Granicus “Find a Park” take-home. Paths in this index are relative to this `ai-logs/` directory. Prompts are in `prompts/`.
+These files are the conversation record for the take-home: the visible Grok Bot chat and the Codex sessions that built the app.
 
-The assignment brief and a source copy of the sample JSON lived outside this repository during development and are not included here.
+## What’s in this folder
+
+| File | What it is |
+|---|---|
+| `grokbot-transcript.md` | The visible Granicus Build chat, oldest first. Brian’s messages and Grok Bot’s replies (including question cards). |
+| `combined-transcript.md` | The same Grok chat interleaved with the Codex coding sessions, in chronological order (America/Chicago). |
+| `codex-1-scaffold.md` … `codex-11-phone-scroll.md` | One readable Codex session each, in the order they ran. |
+| `raw/` | The original Codex session files (`.jsonl`), unmodified. |
+
+## How to read them
+
+**Grok Bot log.** This is the chat you would have seen in the app. Hidden system setup, background-task notices, tool calls, and tool output are left out. Message wording is unedited, aside from stripping app wrappers (timestamps are kept as headers; widget answers are labeled `Answered: …`).
+
+**Codex readable files.** These are the prompts sent to Codex and Codex’s replies, the way a conversation would look. Codex reasoning summaries were disabled for these sessions (`summary` mode `none`), so there is no plaintext “thinking” to include. The reasoning is stored only as encrypted content in `raw/`.
+
+**`raw/`.** Byte-for-byte copies of the Codex session files from `~/.codex/sessions/` on the machine that ran them. They include commands, command output, tool calls, and encrypted reasoning. They have not been edited.
+
+raw/rollout-2026-11-24T15-15-00-01a20f69-7858-7591-8521-c3b750a09a3c.jsonl: two browser window titles captured by a screen-reading step were redacted for privacy; nothing else in raw/ is modified.
+
+**Combined log.** Same filtering as the separate files. One automated Codex safety-review session is omitted from this file only (it is a large internal policy check, not a coding chat). A one-line pointer marks where it ran; the session itself is in `codex-4-map-auto-review.md` and `raw/`.
+
+## What was left out
+
+One Codex session from 2:57 PM CT (America/Chicago) on Nov 24, 2026 was excluded entirely. Its working directory was the parent folder (`C:\Users\brian\granicus-takehome`), not the `granicus-find-a-park` repo or a worktree, and the content was only a connectivity ping (“Reply with the exact word ok”).
+
+## Codex CLI session files and prompts from the build
+
+The files below were collected during the build and already lived in this folder. Paths are relative to `ai-logs/`. Prompts are in `prompts/`.
 
 Model used for Codex sessions: `gpt-6.2-astra`, `model_reasoning_effort=high`.
 
