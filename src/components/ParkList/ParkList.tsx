@@ -1,4 +1,4 @@
-﻿import type { ParkSelectionProps } from '../../types'
+import type { ParkSelectionProps } from '../../types'
 import './ParkList.css'
 
 export function ParkList({ parks, selectedParkId, onSelectPark }: ParkSelectionProps) {
