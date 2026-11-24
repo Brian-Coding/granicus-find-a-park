@@ -30,8 +30,8 @@ export default function App() {
       <div className="park-layout">
         <ParkList {...selectionProps} />
         <div className="park-map-and-details">
-          <ParkDetails park={selectedPark} onClose={backToList} />
           <ParkMap {...selectionProps} />
+          <ParkDetails park={selectedPark} onClose={backToList} />
         </div>
       </div>
     </main>

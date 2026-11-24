@@ -19,13 +19,12 @@ p { margin: 0.5rem 0 0; }
   gap: 1rem;
 }
 
-.park-map-and-details { display: flex; flex-direction: column-reverse; gap: 1rem; }
+.park-map-and-details { display: flex; flex-direction: column; gap: 1rem; }
 .panel { background: white; border: 1px solid #c7d3ca; border-radius: 0.5rem; padding: 1.25rem; }
 .map-panel { min-height: 21rem; background: #e5ede6; }
 :focus-visible { outline: 3px solid #1853a0; outline-offset: 3px; }
 
 @media (max-width: 44rem) {
   .park-layout { grid-template-columns: minmax(0, 1fr); }
-  .park-map-and-details { flex-direction: column; }
   .map-panel { min-height: 12rem; }
 }

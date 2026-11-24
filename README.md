@@ -17,7 +17,7 @@ Developed and checked with Node.js 24.20.0 and npm 11.19.0. For Node 20 or 22, t
 - The map fits the parks on load. Click a marker or its **View details** popup button to select a park. The selected marker grows, and the app never requests your location.
 - Tab through the alphabetical list and press Enter or Space to select a park. Keyboard focus has a visible ring. An inset bar and `aria-current` identify the selected list button.
 - Selecting a park focuses its details heading and scrolls it into view. **Back to list** brings the park’s list button back into view and returns focus to it. The park stays selected.
-- On desktop, the list is on the left with the map above the details on the right. At widths of 44rem or less, the panels stack in list, details, map order.
+- On desktop, the list is on the left with the map above the details on the right. At widths of 44rem or less, the panels stack in list, map, details order.
 - Supplied photos load lazily. Failed photos disappear individually. If none remain, a single illustration has a visible **Placeholder** label and a caption explaining whether the photos failed or none were supplied.
 
 ## Architecture

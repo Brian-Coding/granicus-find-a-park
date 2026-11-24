@@ -9,7 +9,7 @@ const headingId = 'park-details-heading'
 export function focusAndScrollTo(id: string) {
   const element = document.getElementById(id)
   element?.focus({ preventScroll: true })
-  element?.scrollIntoView?.({ block: 'nearest', behavior: 'instant' })
+  element?.scrollIntoView?.({ block: 'nearest', behavior: 'auto' })
 }
 
 interface ParkDetailsProps {

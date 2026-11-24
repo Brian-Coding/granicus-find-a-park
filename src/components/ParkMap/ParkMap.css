@@ -16,6 +16,10 @@
   outline-offset: 3px;
 }
 
+.park-map .leaflet-marker-icon:focus-visible {
+  outline-offset: -3px;
+}
+
 .park-map .leaflet-popup-content button {
   display: block;
   min-height: 44px;
