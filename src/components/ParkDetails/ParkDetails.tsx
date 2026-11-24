@@ -6,6 +6,15 @@ import './ParkDetails.css'
 
 const headingId = 'park-details-heading'
 
+export function focusParkDetails() {
+  const heading = document.getElementById(headingId)
+  heading?.focus({ preventScroll: true })
+  heading?.closest('section')?.scrollIntoView?.({
+    block: window.matchMedia('(max-width: 44rem)').matches ? 'start' : 'nearest',
+    behavior: 'auto',
+  })
+}
+
 export function focusAndScrollTo(id: string) {
   const element = document.getElementById(id)
   element?.focus({ preventScroll: true })
@@ -47,7 +56,7 @@ export function ParkDetails({ park, onClose }: ParkDetailsProps) {
   const parkId = park?.id
 
   useEffect(() => {
-    if (parkId !== undefined) focusAndScrollTo(headingId)
+    if (parkId !== undefined) focusParkDetails()
   }, [parkId])
 
   if (!park) {

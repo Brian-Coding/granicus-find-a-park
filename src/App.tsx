@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ParkDetails, focusAndScrollTo } from './components/ParkDetails/ParkDetails'
+import { ParkDetails, focusAndScrollTo, focusParkDetails } from './components/ParkDetails/ParkDetails'
 import { ParkList } from './components/ParkList/ParkList'
 import { ParkMap } from './components/ParkMap/ParkMap'
 import { normalizePark } from './data/normalizePark'
@@ -14,7 +14,7 @@ export default function App() {
 
   function selectPark(id: string) {
     if (id === selectedParkId) {
-      focusAndScrollTo('park-details-heading')
+      focusParkDetails()
     } else {
       setSelectedParkId(id)
     }
