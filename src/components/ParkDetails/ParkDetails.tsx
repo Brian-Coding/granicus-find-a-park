@@ -1,8 +1,16 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import placeholder from '../../assets/park-placeholder.webp'
 import type { Park } from '../../types'
 import { formatAmenity } from './formatAmenity'
 import './ParkDetails.css'
+
+const headingId = 'park-details-heading'
+
+export function focusAndScrollTo(id: string) {
+  const element = document.getElementById(id)
+  element?.focus({ preventScroll: true })
+  element?.scrollIntoView?.({ block: 'nearest', behavior: 'instant' })
+}
 
 interface ParkDetailsProps {
   park: Park | undefined
@@ -36,12 +44,10 @@ function ParkPhotos({ park }: { park: Park }) {
 }
 
 export function ParkDetails({ park, onClose }: ParkDetailsProps) {
-  const headingId = useId()
-  const headingRef = useRef<HTMLHeadingElement>(null)
   const parkId = park?.id
 
   useEffect(() => {
-    if (parkId !== undefined) headingRef.current?.focus()
+    if (parkId !== undefined) focusAndScrollTo(headingId)
   }, [parkId])
 
   if (!park) {
@@ -56,7 +62,7 @@ export function ParkDetails({ park, onClose }: ParkDetailsProps) {
   return (
     <section key={park.id} className="panel park-details" aria-labelledby={headingId}>
       <header className="park-details-header">
-        <h2 id={headingId} ref={headingRef} tabIndex={-1}>{park.name}</h2>
+        <h2 id={headingId} tabIndex={-1}>{park.name}</h2>
         <button type="button" onClick={onClose}>Back to list</button>
       </header>
       <dl>

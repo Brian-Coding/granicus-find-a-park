@@ -16,8 +16,8 @@ Developed and checked with Node.js 24.20.0 and npm 11.19.0. For Node 20 or 22, t
 
 - The map fits the parks on load. Click a marker or its **View details** popup button to select a park. The selected marker grows, and the app never requests your location.
 - Tab through the alphabetical list and press Enter or Space to select a park. Keyboard focus has a visible ring. An inset bar and `aria-current` identify the selected list button.
-- Selection moves focus to the details heading. **Back to list** returns focus to the selected park’s button, including after selection from the map.
-- The list and details sit beside the map on desktop. At widths of 44rem or less, the panels stack.
+- Selecting a park focuses its details heading and scrolls it into view. **Back to list** brings the park’s list button back into view and returns focus to it. The park stays selected.
+- On desktop, the list is on the left with the map above the details on the right. At widths of 44rem or less, the panels stack in list, details, map order.
 - Supplied photos load lazily. Failed photos disappear individually. If none remain, a single illustration has a visible **Placeholder** label and a caption explaining whether the photos failed or none were supplied.
 
 ## Architecture
@@ -48,11 +48,14 @@ Search, filters, current location, URL deep links (`?park=id`), a backend, and d
 - All supplied photo URLs point to `images.example.com`. These placeholder URLs yield the “Photo unavailable” illustration when loading fails.
 - Missing tiles leave grey areas on the map without an explanatory message. The list and details still work.
 - The list is the primary keyboard path. A formal screen-reader and WCAG audit is still outstanding.
+- Leaflet’s default zoom and popup close buttons are under 44px tall.
+- About 25 Tab stops precede the zoom controls, including 12 list buttons and 12 markers. There is no skip link.
+- **Back to list** wraps below long park names when space is tight.
 - Most sample points lack a verified park match and are unsuitable for navigation.
 
 ## How it was checked
 
-- All 73 unit and component tests passed across six files. The list tests use `@testing-library/user-event` for Tab, Enter, and Space. Photo tests dispatch errors without using the network.
+- All 74 unit and component tests passed across six files. The list tests use `@testing-library/user-event` for Tab, Enter, and Space. Photo tests dispatch errors without using the network.
 - `npm run lint`, `npm run typecheck`, and `npm run build` passed.
 - Grok Bot reviewed each PR before merge. Review replaced a direct focus-and-click test with keyboard input, caught UTF-8 BOMs from Windows tooling, fixed a layout shift on list selection, and added focus restoration on Back.
 - Brian tested the app manually on localhost.

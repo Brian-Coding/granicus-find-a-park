@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react'
-import { icon } from 'leaflet'
+import { useEffect, useMemo, useRef } from 'react'
+import { icon, type Popup as LeafletPopup } from 'leaflet'
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
@@ -39,6 +39,15 @@ export function ParkMap({ parks, selectedParkId, onSelectPark }: ParkSelectionPr
   const markers = useMemo(() => parksWithCoordinates(parks), [parks])
   const selected = markers.find((marker) => marker.id === selectedParkId)
   const missingCount = parks.length - markers.length
+  const openPopup = useRef<{ id: string; popup: LeafletPopup } | null>(null)
+
+  useEffect(() => {
+    const current = openPopup.current
+    if (current && current.id !== selectedParkId) {
+      current.popup.close()
+      openPopup.current = null
+    }
+  }, [selectedParkId])
 
   return (
     <section className="panel map-panel" aria-labelledby="park-map-heading">
@@ -68,7 +77,10 @@ export function ParkMap({ parks, selectedParkId, onSelectPark }: ParkSelectionPr
             alt={name}
             icon={id === selectedParkId ? selectedIcon : parkIcon}
             zIndexOffset={id === selectedParkId ? 1000 : 0}
-            eventHandlers={{ click: () => onSelectPark(id) }}
+            eventHandlers={{
+              click: () => onSelectPark(id),
+              popupopen: ({ popup }) => { openPopup.current = { id, popup } },
+            }}
           >
             <Popup>
               <strong>{name}</strong>
