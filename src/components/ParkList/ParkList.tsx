@@ -1,4 +1,4 @@
-import type { ParkSelectionProps } from '../../types'
+﻿import type { ParkSelectionProps } from '../../types'
 import './ParkList.css'
 
 export function ParkList({ parks, selectedParkId, onSelectPark }: ParkSelectionProps) {
@@ -16,13 +16,16 @@ export function ParkList({ parks, selectedParkId, onSelectPark }: ParkSelectionP
             return (
               <li key={park.id}>
                 <button
+                  id={`park-list-button-${park.id}`}
                   type="button"
                   className="park-list-button"
                   aria-current={park.id === selectedParkId ? 'true' : undefined}
                   onClick={() => onSelectPark(park.id)}
                 >
                   <span className="park-list-name">{park.name}</span>
-                  {address && <span className="park-list-address">{address}</span>}
+                  <span className={address ? 'park-list-address' : 'park-list-address park-list-address--missing'}>
+                    {address || 'Address not provided'}
+                  </span>
                 </button>
               </li>
             )
@@ -32,3 +35,4 @@ export function ParkList({ parks, selectedParkId, onSelectPark }: ParkSelectionP
     </section>
   )
 }
+
