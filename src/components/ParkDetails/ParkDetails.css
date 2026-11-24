@@ -1,3 +1,7 @@
+.park-details {
+  scroll-margin-top: 0.75rem;
+}
+
 .park-details-header {
   display: flex;
   align-items: center;
