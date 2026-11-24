@@ -12,13 +12,18 @@ export default function App() {
   const selectedPark = parks.find((park) => park.id === selectedParkId)
   const selectionProps = { parks, selectedParkId, onSelectPark: setSelectedParkId }
 
+  function closeDetails() {
+    setSelectedParkId(null)
+    document.getElementById(`park-list-button-${selectedParkId}`)?.focus()
+  }
+
   return (
     <main>
       <h1>Find a Park</h1>
       <div className="park-layout">
         <div className="park-sidebar">
           <ParkList {...selectionProps} />
-          <ParkDetails park={selectedPark} onClose={() => setSelectedParkId(null)} />
+          <ParkDetails park={selectedPark} onClose={closeDetails} />
         </div>
         <ParkMap {...selectionProps} />
       </div>
