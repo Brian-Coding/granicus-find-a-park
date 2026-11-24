@@ -9,21 +9,30 @@ interface ParkDetailsProps {
   onClose: () => void
 }
 
-function ParkPhoto({ src, alt }: { src?: string; alt: string }) {
-  const [failed, setFailed] = useState(false)
+function ParkPhotos({ park }: { park: Park }) {
+  const [failedUrls, setFailedUrls] = useState(() => new Set<string>())
+  const images = park.images ?? []
 
-  return (
-    <figure>
+  if (images.every((src) => failedUrls.has(src))) {
+    const reason = images.length ? 'Photo unavailable' : 'No photos provided'
+    return (
+      <figure>
+        <img src={placeholder} alt={`Placeholder illustration — ${reason.toLowerCase()}`} />
+        <figcaption><span className="park-photo-label">Placeholder</span> {reason}</figcaption>
+      </figure>
+    )
+  }
+
+  return images.map((src, index) => failedUrls.has(src) ? null : (
+    <figure key={`${src}-${index}`}>
       <img
-        src={failed ? placeholder : src ?? placeholder}
-        alt={failed ? 'Placeholder illustration (photo unavailable)' : alt}
+        src={src}
+        alt={`Photo ${index + 1} of ${park.name}`}
         loading="lazy"
-        onError={src && !failed ? () => setFailed(true) : undefined}
+        onError={() => setFailedUrls((previous) => new Set(previous).add(src))}
       />
-      {failed && <figcaption>Photo unavailable</figcaption>}
-      {!src && <figcaption>No photos provided</figcaption>}
     </figure>
-  )
+  ))
 }
 
 export function ParkDetails({ park, onClose }: ParkDetailsProps) {
@@ -84,9 +93,7 @@ export function ParkDetails({ park, onClose }: ParkDetailsProps) {
         <div>
           <dt>Photos</dt>
           <dd className="park-details-photos">
-            {park.images?.length ? park.images.map((src, index) => (
-              <ParkPhoto key={`${src}-${index}`} src={src} alt={`Photo ${index + 1} of ${park.name}`} />
-            )) : <ParkPhoto alt="Placeholder illustration (no photos provided)" />}
+            <ParkPhotos park={park} />
           </dd>
         </div>
       </dl>
