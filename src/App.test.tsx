@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, expect, it } from 'vitest'
 import App from './App'
@@ -26,6 +26,27 @@ it('returns focus from details to the selected park’s list button', async () =
   expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Back to list' }))
   await user.keyboard('{Enter}')
   expect(document.activeElement).toBe(parkButton)
-  expect(screen.getByRole('region', { name: 'Park details' }).textContent).toMatch(/no park selected/i)
+  expect(parkButton.getAttribute('aria-current')).toBe('true')
+  expect(screen.getByRole('heading', { name: 'Highland Dog Park' })).toBeTruthy()
+
+  await user.keyboard('{Enter}')
+  expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Highland Dog Park' }))
+})
+
+it('closes a marker popup when another park is selected from the list', async () => {
+  const user = userEvent.setup()
+  render(<App />)
+  const map = within(screen.getByRole('region', { name: 'Park map' }))
+  fireEvent.click(map.getByRole('button', { name: 'Prospect Park' }))
+  expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Prospect Park' }))
+
+  await user.click(screen.getByRole('button', { name: 'Back to list' }))
+  expect(map.getByRole('button', { name: 'View details' })).toBeTruthy()
+  const list = within(screen.getByRole('region', { name: `Parks (${sample.length})` }))
+  expect(document.activeElement).toBe(list.getByRole('button', { name: /^Prospect Park/ }))
+
+  await user.click(list.getByRole('button', { name: /^Highland Dog Park/ }))
+  expect(map.queryByRole('button', { name: 'View details' })).toBeNull()
+  expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Highland Dog Park' }))
 })
 
