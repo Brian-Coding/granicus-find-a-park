@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ParkDetails } from './components/ParkDetails/ParkDetails'
+import { ParkDetails, focusAndScrollTo, focusParkDetails } from './components/ParkDetails/ParkDetails'
 import { ParkList } from './components/ParkList/ParkList'
 import { ParkMap } from './components/ParkMap/ParkMap'
 import { normalizePark } from './data/normalizePark'
@@ -10,17 +10,29 @@ const parks = sample.map(normalizePark)
 export default function App() {
   const [selectedParkId, setSelectedParkId] = useState<string | null>(null)
   const selectedPark = parks.find((park) => park.id === selectedParkId)
-  const selectionProps = { parks, selectedParkId, onSelectPark: setSelectedParkId }
+  const selectionProps = { parks, selectedParkId, onSelectPark: selectPark }
+
+  function selectPark(id: string) {
+    if (id === selectedParkId) {
+      focusParkDetails()
+    } else {
+      setSelectedParkId(id)
+    }
+  }
+
+  function backToList() {
+    focusAndScrollTo(`park-list-button-${selectedParkId}`)
+  }
 
   return (
     <main>
       <h1>Find a Park</h1>
       <div className="park-layout">
-        <div className="park-sidebar">
-          <ParkList {...selectionProps} />
-          <ParkDetails park={selectedPark} onClose={() => setSelectedParkId(null)} />
+        <ParkList {...selectionProps} />
+        <div className="park-map-and-details">
+          <ParkMap {...selectionProps} />
+          <ParkDetails park={selectedPark} onClose={backToList} />
         </div>
-        <ParkMap {...selectionProps} />
       </div>
     </main>
   )

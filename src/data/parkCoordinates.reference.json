@@ -1,0 +1,247 @@
+{
+  "title": "Verified / researched coordinates for the Granicus Find a Park sample dataset",
+  "generated": "2026-11-24",
+  "timezoneNote": "Research completed 2026-11-24 afternoon America/Chicago (CT).",
+  "purpose": "Reference only, for a potential later coordinate fix. The app must keep using the supplied sample data in src/data/parks.sample.json (or assets/parks.sample.json). This file is not wired into the application.",
+  "method": {
+    "sources": [
+      "OpenStreetMap Nominatim search and reverse geocode (https://nominatim.openstreetmap.org/), User-Agent GranicusFindAPark-CoordResearch/1.0, at most one request per second",
+      "NYC Parks official park and facility pages (https://www.nycgovparks.org/)",
+      "Wikipedia and Wikidata published coordinates"
+    ],
+    "rules": [
+      "Never invent coordinates.",
+      "verified is null unless a real named park was matched (exact name, or a plausible match supported by the sample address).",
+      "Addresses such as '44th St & 7th Ave' or 'Memorial Dr, Queens, NY 11367' may be geocoded as addresses; those points are recorded under addressGeocode and must not be treated as verified park locations.",
+      "Vague street-only addresses (Shore Pkwy, Ridge Rd, Creek Rd, Cedar Hill Rd, Hillcrest Ave) were not assigned a single point when Nominatim could not return a unique relevant NYC result."
+    ]
+  },
+  "matchConfidenceValues": [
+    "exact named park",
+    "plausible real-world match by address",
+    "address geocode",
+    "no real match found"
+  ],
+  "parks": [
+    {
+      "id": "prospect-park",
+      "name": "Prospect Park",
+      "sample": {
+        "lat": 40.6602,
+        "lng": -73.969,
+        "address": "Brooklyn, NY 11225"
+      },
+      "verified": {
+        "lat": 40.66167,
+        "lng": -73.97083
+      },
+      "addressGeocode": null,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Prospect_Park_(Brooklyn)",
+      "alsoSee": [
+        "https://www.nycgovparks.org/parks/prospect-park",
+        "https://www.openstreetmap.org/relation/9760157"
+      ],
+      "matchConfidence": "exact named park",
+      "note": "Wikipedia centroid (40.66167, -73.97083) is 0.23 km from the sample point; acreage 526 also matches NYC Parks. OSM relation centroid is 40.6617743, -73.9710896 (0.25 km from sample)."
+    },
+    {
+      "id": "riverside-commons",
+      "name": "Riverside Commons",
+      "sample": {
+        "lat": 40.8009,
+        "lng": -73.9722,
+        "address": "Riverside Dr, New York, NY 10024"
+      },
+      "verified": {
+        "lat": 40.80417,
+        "lng": -73.97
+      },
+      "addressGeocode": {
+        "lat": 40.7901418,
+        "lng": -73.9802157,
+        "query": "Riverside Drive, New York, NY 10024",
+        "sourceUrl": "https://nominatim.openstreetmap.org/ui/search.html?q=Riverside+Drive%2C+New+York%2C+NY+10024",
+        "displayName": "Riverside Drive, Upper West Side, Manhattan, New York, 10024, United States"
+      },
+      "sourceUrl": "https://en.wikipedia.org/wiki/Riverside_Park_(Manhattan)",
+      "alsoSee": [
+        "https://www.nycgovparks.org/parks/riverside-park",
+        "https://www.openstreetmap.org/relation/17229873"
+      ],
+      "matchConfidence": "plausible real-world match by address",
+      "note": "No NYC park named Riverside Commons. Sample address is Riverside Drive in ZIP 10024, which borders Riverside Park; Nominatim reverse of the sample point also lands on Riverside Drive in Manhattan Valley. Wikipedia park centroid is 0.41 km from the sample point. Street geocode of the 10024 stretch is 40.7901418, -73.9802157 (1.37 km from sample, still along the park)."
+    },
+    {
+      "id": "cedar-hill-nature-preserve",
+      "name": "Cedar Hill Nature Preserve",
+      "sample": {
+        "lat": 40.7128,
+        "lng": -74.006,
+        "address": "Cedar Hill Rd"
+      },
+      "verified": null,
+      "addressGeocode": null,
+      "sourceUrl": "https://nominatim.openstreetmap.org/ui/reverse.html?lat=40.7128&lon=-74.006",
+      "alsoSee": [
+        "https://en.wikipedia.org/wiki/New_York_City_Hall"
+      ],
+      "matchConfidence": "no real match found",
+      "note": "Sample coordinates are the generic NYC / City Hall point (40.7128, -74.006); Nominatim reverse is New York City Hall at 260 Broadway (0.01 km). No NYC park named Cedar Hill Nature Preserve. A private preserve of that name exists in Milam County, Texas, and Central Park has a lawn called Cedar Hill; neither is a 212-acre preserve on Cedar Hill Rd, so neither is used. 'Cedar Hill Rd' is too vague to geocode inside NYC."
+    },
+    {
+      "id": "sunset-playground",
+      "name": "Sunset Playground",
+      "sample": {
+        "lat": 40.6452,
+        "lng": -74.0121,
+        "address": "44th St & 7th Ave"
+      },
+      "verified": {
+        "lat": 40.6477241,
+        "lng": -74.004427
+      },
+      "addressGeocode": null,
+      "sourceUrl": "https://www.nycgovparks.org/facilities/playgrounds/52",
+      "alsoSee": [
+        "https://www.nycgovparks.org/parks/sunset-park",
+        "https://www.openstreetmap.org/way/881121558"
+      ],
+      "matchConfidence": "plausible real-world match by address",
+      "note": "Official name is Sunset Park Playground (NYC Parks facility, 6 Ave between 41st and 44th Sts), inside Sunset Park, which is bounded by 41st\u201344th Sts and 5th\u20137th Aves. '44th St & 7th Ave' is the park's southeast corner. Nominatim did not return a single intersection node, so there is no separate addressGeocode point. OSM playground centroid 40.6477241, -74.0044270 is 0.71 km from the sample point (sample reverse-geocodes to 444 51st Street, a few blocks southwest of the park)."
+    },
+    {
+      "id": "highland-dog-park",
+      "name": "Highland Dog Park",
+      "sample": {
+        "lat": 40.6789,
+        "lng": -73.9442,
+        "address": null
+      },
+      "verified": null,
+      "addressGeocode": null,
+      "sourceUrl": "https://www.openstreetmap.org/way/61235624",
+      "alsoSee": [
+        "https://www.nycgovparks.org/parks/highland-park"
+      ],
+      "matchConfidence": "no real match found",
+      "note": "No facility officially named Highland Dog Park, and the record has no address. Highland Park (Brooklyn/Queens border, OSM 40.6871747, -73.8877422) has a dog run, but it is 4.85 km east of the sample point. Sample reverse-geocodes to a residential building at 234 Herkimer Street, Bedford-Stuyvesant. That similar name is recorded only as a near-miss, not as a verified location."
+    },
+    {
+      "id": "veterans-memorial-field",
+      "name": "Veterans Memorial Field",
+      "sample": {
+        "lat": 40.7282,
+        "lng": -73.7949,
+        "address": "Memorial Dr, Queens, NY 11367"
+      },
+      "verified": null,
+      "addressGeocode": null,
+      "sourceUrl": "https://nominatim.openstreetmap.org/ui/search.html?q=Memorial+Drive%2C+Queens%2C+NY+11367",
+      "alsoSee": [
+        "https://www.nycgovparks.org/parks/forest-park"
+      ],
+      "matchConfidence": "no real match found",
+      "note": "No NYC park named Veterans Memorial Field. Nominatim found no 'Memorial Drive' in Queens ZIP 11367 (Kew Gardens Hills). Forest Park has a Memorial Drive / Korean War Veterans Memorial Drive, but that is a different Queens neighborhood and is not used as a match. Sample reverse-geocodes to a house at 74-26 175th Street, Fresh Meadows, NY 11366, not a sports complex."
+    },
+    {
+      "id": "old-mill-botanical-garden",
+      "name": "Old Mill Botanical Garden",
+      "sample": {
+        "lat": 40.6215,
+        "lng": -74.0776,
+        "address": "12 Old Mill Ln"
+      },
+      "verified": null,
+      "addressGeocode": null,
+      "sourceUrl": "https://www.nycgovparks.org/highlights/places-to-go/botanical-gardens",
+      "alsoSee": [
+        "https://nominatim.openstreetmap.org/ui/search.html?q=12+Old+Mill+Lane%2C+New+York"
+      ],
+      "matchConfidence": "no real match found",
+      "note": "No NYC garden named Old Mill Botanical Garden (NYC Parks botanical gardens list has no such site). '12 Old Mill Lane' does not geocode in New York City; Nominatim only returned houses in Warren, Westchester, Washington, Delaware, and Rockland Counties. Sample reverse-geocodes to 75 Vanderbilt Avenue, Clifton, Staten Island 10304, a residential area, not a garden. Staten Island Botanical Garden at Snug Harbor is a different name and address and is not used."
+    },
+    {
+      "id": "lakeshore-point",
+      "name": "Lakeshore Point",
+      "sample": {
+        "lat": 40.5795,
+        "lng": -73.9707,
+        "address": "Shore Pkwy"
+      },
+      "verified": null,
+      "addressGeocode": null,
+      "sourceUrl": "https://nominatim.openstreetmap.org/ui/search.html?q=Lakeshore+Point%2C+New+York",
+      "alsoSee": [
+        "https://www.nycgovparks.org/parks/B166/"
+      ],
+      "matchConfidence": "no real match found",
+      "note": "No NYC park named Lakeshore Point. 'Shore Pkwy' is a multi-mile parkway and cannot be geocoded to a single meaningful point. Sample reverse-geocodes to a residential building at 458 West 5th Street, West Brighton, Brooklyn 11224 (Coney Island area), not a waterfront park with a fishing pier and kayak launch."
+    },
+    {
+      "id": "east-ridge-trailhead",
+      "name": "East Ridge Trailhead",
+      "sample": {
+        "lat": 40.8501,
+        "lng": -73.8662,
+        "address": "Ridge Rd"
+      },
+      "verified": null,
+      "addressGeocode": null,
+      "sourceUrl": "https://nominatim.openstreetmap.org/ui/search.html?q=East+Ridge+Trailhead%2C+New+York",
+      "alsoSee": [],
+      "matchConfidence": "no real match found",
+      "note": "No NYC trailhead or park named East Ridge Trailhead. Nominatim found no Ridge Road in the Bronx. Sample reverse-geocodes to a building at 1988 Cruger Avenue, Bronxdale, Bronx 10462, a residential block, not a 640-acre ridgeline trail network."
+    },
+    {
+      "id": "central-plaza-green",
+      "name": "Central Plaza Green",
+      "sample": {
+        "lat": 40.7549,
+        "lng": -73.984,
+        "address": "1 Plaza Way"
+      },
+      "verified": null,
+      "addressGeocode": null,
+      "sourceUrl": "https://nominatim.openstreetmap.org/ui/search.html?q=Central+Plaza+Green%2C+New+York",
+      "alsoSee": [
+        "https://www.openstreetmap.org/way/22727025"
+      ],
+      "matchConfidence": "no real match found",
+      "note": "No NYC park named Central Plaza Green, and '1 Plaza Way' does not geocode. The sample point is 0.13 km from Bryant Park (OSM 40.7537509, -73.9835428) and reverse-geocodes to the 42nd Street-Bryant Park station, but the name and address do not match, so Bryant Park is not used as a verified location."
+    },
+    {
+      "id": "willow-creek-wetlands",
+      "name": "Willow Creek Wetlands",
+      "sample": {
+        "lat": 40.6001,
+        "lng": -74.0899,
+        "address": "Creek Rd"
+      },
+      "verified": null,
+      "addressGeocode": null,
+      "sourceUrl": "https://nominatim.openstreetmap.org/ui/search.html?q=Willow+Creek+Wetlands%2C+New+York",
+      "alsoSee": [
+        "https://www.nycgovparks.org/parks/willowbrook-park"
+      ],
+      "matchConfidence": "no real match found",
+      "note": "No NYC park named Willow Creek Wetlands. Nominatim found no Creek Road on Staten Island. Sample reverse-geocodes to 11 Scranton Street, Old Town, Staten Island 10304, a residential street, not a 78-acre tidal wetland. Willowbrook Park (OSM 40.5994453, -74.1582914) is a similarly themed near-miss 5.78 km west and is not used as a verified location."
+    },
+    {
+      "id": "hillcrest-skate-park",
+      "name": "Hillcrest Skate Park",
+      "sample": {
+        "lat": 40.6934,
+        "lng": -73.9876,
+        "address": "Hillcrest Ave"
+      },
+      "verified": null,
+      "addressGeocode": null,
+      "sourceUrl": "https://www.nycgovparks.org/facilities/skateparks",
+      "alsoSee": [
+        "https://nominatim.openstreetmap.org/ui/search.html?q=Hillcrest+Skate+Park%2C+New+York"
+      ],
+      "matchConfidence": "no real match found",
+      "note": "No facility named Hillcrest Skate Park appears in Nominatim or on the NYC Parks skate parks list. 'Hillcrest Avenue' exists in Staten Island and Queens, not at the sample point. Sample reverse-geocodes to the New York Marriott at the Brooklyn Bridge, Adams Street, Downtown Brooklyn \u2014 not a skate park."
+    }
+  ]
+}
